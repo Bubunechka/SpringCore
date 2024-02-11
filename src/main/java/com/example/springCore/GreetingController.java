@@ -1,14 +1,20 @@
 package com.example.springCore;
 
+import com.example.springCore.domain.Message;
+import com.example.springCore.repos.MessageRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
 @Controller
 public class GreetingController {
+    @Autowired
+    private MessageRepo messageRepo;
 
     @GetMapping("/greeting")
     public String greeting(
@@ -20,9 +26,26 @@ public class GreetingController {
 
     @GetMapping
     public String main(Map<String, Object> model){
-        model.put("some", "let's take money :) ");
+        Iterable<Message> messages= messageRepo.findAll();
+
+        model.put("messages", messages);
+
         return "main";
     }
 
+    @PostMapping
+    public String add (@RequestParam String text, @RequestParam String tag, Map<String, Object> model){
+        Message message = new Message(text, tag);
+        messageRepo.save(message);
+        //сохранили
+
+        Iterable<Message> messages= messageRepo.findAll();
+        //взяли из репозитория
+        model.put("messages", messages);
+        //положили в модель
+
+        return "main";
+        // отдали пользователю
+    }
 
 }
