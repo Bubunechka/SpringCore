@@ -1,22 +1,23 @@
-<html>
-    <body>
+<html lang="eng">
+<body>
+<div>
+    <form method="post">
+        <input type="text" name="text" placeholder="put" />
+        <input type="text" name="tag" placeholder="tag" />
+        <button type="submit">add</button>
+    </form>
+</div>
+<div>list</div>
+<form method="post" action="/filter">
+    <input type="text" name="text" />
+    <button type="submit">Find</button>
+</form>
+{{#messages}}
     <div>
-        <form method="post">
-            <input type="text"name="text" placeholder="Введите сообщение"/>
-            <input type="type" name="tag" placeholder="Тэг">
-            <button> type="submit"> Добавить</button>>
-
-        </form>
+        <b>{{id}}</b>
+        <span>{{text}}</span>
+        <i>{{tag}}</i>
     </div>
-        <head>
-            <div>Список сообщений</div>
-            {{#messages}}
-                <div>
-                    <b>{{id}}</b>
-                    <span>{{text}}</span>
-                    <i>{{tag}}</i>
-                </div>
-            {{/messages}}
-        </head>
-    </body>
+{{/messages}}
+</body>
 </html>
