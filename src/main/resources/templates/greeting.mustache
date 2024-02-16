@@ -7,5 +7,20 @@
 <body>
 <div>Hello, user</div>
 <a href ="/main"> Main page </a>
+
+<http pattern="/securityNone" security="none"/>
+<http use-expressions="true">
+    <intercept-url pattern="/**" access="isAuthenticated()" />
+    <http-basic />
+</http>
+
+<authentication-manager>
+    <authentication-provider>
+        <user-service>
+            <user name="user1" password="{noop}user1Pass" authorities="ROLE_USER" />
+        </user-service>
+    </authentication-provider>
+</authentication-manager>
+
 </body>
 </html>
